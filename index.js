@@ -14,6 +14,7 @@ function getStateInfo() {
   let url = `${endpoint}?stateCode=${stateid}&limit=${max}&api_key=${APIKey}`
   let url2 = `${endpoint}?stateCode=${stateid}&stateCode=${stateid2}&limit=${max}&api_key=${APIKey}`
   let url3 = `${endpoint}?stateCode=${stateid}&stateCode=${stateid2}&stateCode=${stateid3}&limit=${max}&api_key=${APIKey}`
+  let url4 = `${endpoint}?stateCode=${stateid}&stateCode=${stateid3}&limit=${max}&api_key=${APIKey}`
   if (stateid2 === "" && stateid3 === "") {
     console.log(url);
     fetch(url)
@@ -36,7 +37,12 @@ function getStateInfo() {
     displayResults(responseJson))
   .catch(error => alert('Something went wrong. Try again later.'));
   } else if (stateid2 === "" && stateid3 !== "") {
-    alert("If selecting two states, please use 1st State and 2nd State and leave 3rd State blank.")
+    console.log(url4);
+    fetch(url4)
+  .then(response => response.json())
+  .then(responseJson => 
+    displayResults(responseJson))
+  .catch(error => alert('Something went wrong. Try again later.'));
   } else {
   fetch(url)
   .then(response => response.json())
@@ -63,3 +69,19 @@ function displayResults(responseJson) {
 $(function() {
   watchForm();
 });
+
+//function pull(query, limit=10) {
+//  let params = {
+//    code: state,
+//    key: APIKey,
+//    max,
+//  };
+//  let queryString = formatQueryParams(params)
+//  let url = endpoint + '?' + queryString;
+//}
+
+//function formatQueryParams(params) {
+//  let queryItems = Object.keys(params)
+//    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+//  return queryItems.join('&');
+//}
